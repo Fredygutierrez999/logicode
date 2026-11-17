@@ -1,5 +1,6 @@
 import { ContactForm } from "./ContactForm";
 import { SectionHeading } from "./SectionHeading";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export function Contact() {
   return (
@@ -27,6 +28,17 @@ export function Contact() {
               </li>
             ))}
           </ul>
+          <div className="mt-10 border-t border-line pt-6">
+            <p className="text-sm text-muted">
+              ¿Prefieres escribirnos directamente?
+            </p>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="mt-1 inline-block break-all text-lg font-medium text-accent underline-offset-4 hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </div>
         </div>
         <ContactForm />
       </div>

@@ -1,6 +1,8 @@
 "use server";
 
 import { projectTypes, type ContactState } from "@/lib/contact";
+import { sendContactEmail } from "@/lib/email";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -47,9 +49,14 @@ export async function submitContact(
     };
   }
 
-  // TODO: enviar a un destino real (correo, CRM o base de datos).
-  // Por ahora solo se registra en la consola del servidor.
-  console.info("[contacto] Nueva solicitud:", values);
+  const sent = await sendContactEmail(values);
+  if (!sent) {
+    return {
+      status: "error",
+      message: `No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente a ${CONTACT_EMAIL}.`,
+      values,
+    };
+  }
 
   return {
     status: "success",

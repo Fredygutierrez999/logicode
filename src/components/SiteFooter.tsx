@@ -1,5 +1,6 @@
 import { Logo } from "./Logo";
 import { navLinks } from "./nav-links";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -11,6 +12,12 @@ export function SiteFooter() {
             Aplicaciones web y móviles a la medida, enfocadas en el valor para
             sus usuarios.
           </p>
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="mt-3 inline-block text-sm text-ink hover:text-accent"
+          >
+            {CONTACT_EMAIL}
+          </a>
         </div>
         <nav aria-label="Pie de página">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">

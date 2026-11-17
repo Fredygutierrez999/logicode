@@ -109,6 +109,9 @@ export function ContactForm() {
           error={errors.projectType}
         >
           <select
+            // React reinicia el formulario tras cada envío; la key fuerza
+            // que el select vuelva a montarse con el valor devuelto.
+            key={`${values.projectType ?? ""}-${JSON.stringify(errors)}`}
             id="projectType"
             name="projectType"
             required
