@@ -1,6 +1,7 @@
 import { AiSection } from "@/components/AiSection";
 import { Approach } from "@/components/Approach";
 import { Contact } from "@/components/Contact";
+import { DiagnosticOffer } from "@/components/DiagnosticOffer";
 import { Hero } from "@/components/Hero";
 import { Process } from "@/components/Process";
 import { Services } from "@/components/Services";
@@ -22,6 +23,7 @@ export default function Home() {
         <Hero />
         <AiSection />
         <Services />
+        <DiagnosticOffer />
         <Approach />
         <Process />
         <TechStack />

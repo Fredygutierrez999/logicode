@@ -1,8 +1,13 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { submitContact } from "@/app/actions/contact";
-import { projectTypes, type ContactState } from "@/lib/contact";
+import {
+  DIAGNOSTIC_ANCHOR,
+  DIAGNOSTIC_OPTION,
+  projectTypes,
+  type ContactState,
+} from "@/lib/contact";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -14,6 +19,22 @@ export function ContactForm() {
     submitContact,
     initialState,
   );
+  const selectRef = useRef<HTMLSelectElement>(null);
+
+  // Si se llega desde "Solicitar mi diagnóstico", preselecciona esa opción.
+  useEffect(() => {
+    const apply = () => {
+      if (
+        window.location.hash === `#${DIAGNOSTIC_ANCHOR}` &&
+        selectRef.current
+      ) {
+        selectRef.current.value = DIAGNOSTIC_OPTION;
+      }
+    };
+    apply();
+    window.addEventListener("hashchange", apply);
+    return () => window.removeEventListener("hashchange", apply);
+  }, []);
 
   if (state.status === "success") {
     return (
@@ -112,6 +133,7 @@ export function ContactForm() {
             // React reinicia el formulario tras cada envío; la key fuerza
             // que el select vuelva a montarse con el valor devuelto.
             key={`${values.projectType ?? ""}-${JSON.stringify(errors)}`}
+            ref={selectRef}
             id="projectType"
             name="projectType"
             required

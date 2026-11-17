@@ -1,10 +1,13 @@
 import { ContactForm } from "./ContactForm";
 import { SectionHeading } from "./SectionHeading";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { DIAGNOSTIC_ANCHOR } from "@/lib/contact";
 
 export function Contact() {
   return (
     <section aria-labelledby="contacto-title" id="contacto">
+      {/* Destino del botón "Solicitar mi diagnóstico" */}
+      <span id={DIAGNOSTIC_ANCHOR} aria-hidden="true" className="block" />
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:py-28">
         <div>
           <SectionHeading

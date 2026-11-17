@@ -177,6 +177,16 @@ function OutcomeCard({ outcome: o }: { outcome: Outcome }) {
         ))}
       </ul>
 
+      {o.featured && (
+        <a
+          href="#diagnostico"
+          className="mt-6 inline-flex items-center gap-1.5 self-start text-sm font-medium text-accent underline-offset-4 hover:underline"
+        >
+          Conoce el diagnóstico de IA sin costo
+          <span aria-hidden="true">→</span>
+        </a>
+      )}
+
       <p className="mt-auto pt-7 font-mono text-xs text-muted">
         <span className="sr-only">Tecnologías: </span>
         {o.tech.join(" · ")}

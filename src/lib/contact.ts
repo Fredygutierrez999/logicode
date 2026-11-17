@@ -1,4 +1,10 @@
+/** Opción del formulario que se preselecciona desde la oferta de diagnóstico. */
+export const DIAGNOSTIC_OPTION = "Diagnóstico de IA sin costo";
+/** Ancla que lleva al formulario con el diagnóstico preseleccionado. */
+export const DIAGNOSTIC_ANCHOR = "solicitar-diagnostico";
+
 export const projectTypes = [
+  DIAGNOSTIC_OPTION,
   "Llegar mejor a mis clientes",
   "Operar con más eficiencia",
   "Modernizar mis sistemas",
