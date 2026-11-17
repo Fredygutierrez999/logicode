@@ -121,7 +121,7 @@ function DeviceIllustration() {
       </div>
 
       {/* Teléfono */}
-      <div className="absolute -bottom-10 -right-2 w-[34%] min-w-[118px] rounded-[1.6rem] border-4 border-ink bg-surface p-2 shadow-2xl shadow-ink/20 sm:-right-6">
+      <div className="absolute -bottom-10 -right-2 w-[34%] min-w-[118px] rounded-[1.6rem] border-4 border-ink bg-surface p-2 shadow-2xl shadow-ink/20 sm:-right-6 lg:-right-2 xl:-right-6">
         <div className="mx-auto mb-2 h-1.5 w-10 rounded-full bg-ink/80" />
         <div className="space-y-2 px-1 pb-3">
           <div className="h-16 rounded-xl bg-accent" />

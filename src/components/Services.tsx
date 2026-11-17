@@ -129,7 +129,7 @@ export function Services() {
 function OutcomeCard({ outcome: o }: { outcome: Outcome }) {
   return (
     <article
-      className={`flex h-full flex-col rounded-[calc(1rem-1px)] p-7 sm:p-8 ${
+      className={`flex h-full flex-col rounded-[calc(1rem-1px)] p-6 sm:p-8 ${
         o.featured ? "bg-surface" : "bg-bg"
       }`}
     >
@@ -180,7 +180,7 @@ function OutcomeCard({ outcome: o }: { outcome: Outcome }) {
       {o.featured && (
         <a
           href="#diagnostico"
-          className="mt-6 inline-flex items-center gap-1.5 self-start text-sm font-medium text-accent underline-offset-4 hover:underline"
+          className="mt-4 inline-flex items-center gap-1.5 self-start py-2 text-sm font-medium text-accent underline-offset-4 hover:underline"
         >
           Conoce el diagnóstico de IA sin costo
           <span aria-hidden="true">→</span>
@@ -204,7 +204,7 @@ function ResultsCallout() {
   ];
 
   return (
-    <div className="mt-6 grid items-center gap-8 rounded-2xl border border-line bg-bg p-7 sm:p-10 lg:grid-cols-[1.2fr_1fr]">
+    <div className="mt-6 grid items-center gap-8 rounded-2xl border border-line bg-bg p-6 sm:p-10 lg:grid-cols-[1.2fr_1fr]">
       <div>
         <h3 className="text-xl font-semibold tracking-tight text-balance">
           Medimos el éxito en resultados, no en líneas de código
@@ -220,7 +220,7 @@ function ResultsCallout() {
           Cuéntanos tu objetivo
         </a>
       </div>
-      <ul className="grid grid-cols-2 gap-3">
+      <ul className="grid gap-3 min-[400px]:grid-cols-2">
         {metrics.map((m) => (
           <li
             key={m}

@@ -9,21 +9,21 @@ export function SiteFooter() {
         <div>
           <Logo />
           <p className="mt-3 max-w-xs text-sm text-muted">
-            Aplicaciones web y móviles a la medida, enfocadas en el valor para
-            sus usuarios.
+            Software a la medida e inteligencia artificial, enfocados en los
+            resultados de tu negocio.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="mt-3 inline-block text-sm text-ink hover:text-accent"
+            className="mt-1 inline-block py-2 text-sm text-ink hover:text-accent"
           >
             {CONTACT_EMAIL}
           </a>
         </div>
         <nav aria-label="Pie de página">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+          <ul className="flex flex-wrap gap-x-6 text-sm text-muted">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="hover:text-ink">
+                <a href={link.href} className="inline-block py-3 hover:text-ink">
                   {link.label}
                 </a>
               </li>

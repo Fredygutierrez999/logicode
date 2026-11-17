@@ -37,7 +37,7 @@ export function Contact() {
             </p>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-1 inline-block break-all text-lg font-medium text-accent underline-offset-4 hover:underline"
+              className="inline-block break-all py-2 text-lg font-medium text-accent underline-offset-4 hover:underline"
             >
               {CONTACT_EMAIL}
             </a>

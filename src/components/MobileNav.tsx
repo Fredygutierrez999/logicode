@@ -1,10 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navLinks } from "./nav-links";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+
+  // Cierra el menú con Escape o al pasar a vista de escritorio (p. ej. al girar el teléfono).
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const onResize = () => desktop.matches && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onResize);
+    };
+  }, [open]);
 
   return (
     <div className="md:hidden">
