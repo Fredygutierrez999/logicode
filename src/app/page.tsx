@@ -6,6 +6,7 @@ import { Process } from "@/components/Process";
 import { Services } from "@/components/Services";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { TechStack } from "@/components/TechStack";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <AiSection />
         <Approach />
         <Process />
+        <TechStack />
         <Contact />
       </main>
       <SiteFooter />
