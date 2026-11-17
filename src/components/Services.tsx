@@ -146,7 +146,7 @@ function AiConsulting() {
   return (
     <div className="mt-6 grid gap-10 rounded-2xl border border-accent/50 bg-accent-soft/40 p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr]">
       <div>
-        <span className="grid size-12 place-items-center rounded-xl bg-accent text-accent-ink">
+        <span className="grid size-12 place-items-center rounded-xl bg-linear-to-br from-ai-from to-ai-to text-accent-ink">
           <svg {...iconProps}>
             <circle cx="12" cy="12" r="3" />
             <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />

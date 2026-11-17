@@ -28,7 +28,7 @@ export function AiSection() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_15%_20%,var(--accent-soft),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(40%_50%_at_10%_15%,var(--secondary-soft),transparent_70%),radial-gradient(45%_55%_at_30%_40%,var(--accent-soft),transparent_70%)]"
       />
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
         <div className="grid items-center gap-14 lg:grid-cols-2">

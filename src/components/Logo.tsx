@@ -3,7 +3,7 @@ export function Logo({ className = "" }: { className?: string }) {
     <span className={`inline-flex items-center gap-2 ${className}`}>
       <span
         aria-hidden="true"
-        className="grid size-8 place-items-center rounded-lg bg-accent font-mono text-sm font-semibold text-accent-ink"
+        className="grid size-8 place-items-center rounded-lg bg-linear-to-br from-ai-from to-ai-to font-mono text-sm font-semibold text-accent-ink"
       >
         {"</>"}
       </span>

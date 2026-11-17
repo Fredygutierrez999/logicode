@@ -3,7 +3,7 @@ export function Hero() {
     <section id="inicio" className="relative overflow-hidden">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_75%_30%,var(--accent-soft),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_45%_at_85%_20%,var(--secondary-soft),transparent_70%),radial-gradient(45%_50%_at_65%_55%,var(--accent-soft),transparent_70%)]"
       />
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-16 sm:px-6 md:pt-24 lg:grid-cols-[1.1fr_1fr] lg:pb-28">
         <div>
@@ -13,7 +13,9 @@ export function Hero() {
           </p>
           <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Aplicaciones que tus usuarios{" "}
-            <span className="text-accent">quieren usar.</span>
+            <span className="bg-linear-to-r from-ai-from to-ai-to bg-clip-text text-transparent">
+              quieren usar.
+            </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted text-pretty">
             En Logi Code diseñamos y desarrollamos aplicaciones web y móviles

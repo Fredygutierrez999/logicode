@@ -1,34 +1,59 @@
 @import "tailwindcss";
 
+/*
+ * Paleta corporativa Logi Code — ver README.md, sección "Estándar de colores".
+ * Violeta = color principal (IA, innovación). Azul = secundario (tecnología, confianza).
+ * Cambia los colores SOLO aquí; los componentes usan los tokens.
+ */
 :root {
-  --bg: #f6f7f4;
+  /* Neutros */
+  --bg: #f7f7fb;
   --surface: #ffffff;
-  --surface-2: #edf1ef;
-  --ink: #0c1322;
-  --muted: #566170;
-  --line: #dfe4e1;
-  --accent: #0f766e;
-  --accent-hover: #0b5f58;
+  --surface-2: #eeeef6;
+  --ink: #0f1027;
+  --muted: #585c75;
+  --line: #e2e3ee;
+
+  /* Marca */
+  --accent: #6d28d9; /* Violeta IA — principal */
+  --accent-hover: #5b21b6;
   --accent-ink: #ffffff;
-  --accent-soft: #d5efe9;
+  --accent-soft: #ede9fe;
+  --secondary: #1d4ed8; /* Azul tecnología — secundario */
+  --secondary-soft: #dbeafe;
+
+  /* Degradado IA (azul → violeta) */
+  --ai-from: #2563eb;
+  --ai-to: #7c3aed;
+
+  /* Estados */
   --danger: #b42318;
-  --band: #0c1322;
-  --band-ink: #e8edf3;
-  --band-accent: #2dd4bf;
+
+  /* Banda oscura (igual en ambos temas) */
+  --band: #0f1027;
+  --band-ink: #ececf7;
+  --band-accent: #a78bfa;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #090e16;
-    --surface: #101722;
-    --surface-2: #162030;
-    --ink: #e8edf3;
-    --muted: #9aa6b5;
-    --line: #213045;
-    --accent: #2dd4bf;
-    --accent-hover: #5eead4;
-    --accent-ink: #04201c;
-    --accent-soft: #0f2f2c;
+    --bg: #0a0a16;
+    --surface: #121228;
+    --surface-2: #1a1a36;
+    --ink: #ececf7;
+    --muted: #a3a6c2;
+    --line: #26264a;
+
+    --accent: #a78bfa;
+    --accent-hover: #c4b5fd;
+    --accent-ink: #160b33;
+    --accent-soft: #241b4d;
+    --secondary: #60a5fa;
+    --secondary-soft: #172554;
+
+    --ai-from: #60a5fa;
+    --ai-to: #a78bfa;
+
     --danger: #f97066;
   }
 }
@@ -44,6 +69,10 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
+  --color-ai-from: var(--ai-from);
+  --color-ai-to: var(--ai-to);
   --color-danger: var(--danger);
   --color-band: var(--band);
   --color-band-ink: var(--band-ink);
