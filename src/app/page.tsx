@@ -20,10 +20,10 @@ export default function Home() {
       <SiteHeader />
       <main id="contenido" className="flex-1">
         <Hero />
+        <AiSection />
         <Services />
         <Approach />
         <Process />
-        <AiSection />
         <TechStack />
         <Contact />
       </main>
