@@ -24,7 +24,7 @@ export function Approach() {
     <section
       aria-labelledby="enfoque-title"
       id="enfoque"
-      className="border-t border-line bg-surface"
+      className="border-t border-line"
     >
       <div className="mx-auto grid max-w-6xl gap-14 px-4 py-20 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:py-28">
         <div className="lg:sticky lg:top-28 lg:self-start">
@@ -40,7 +40,7 @@ export function Approach() {
           {principles.map((p, i) => (
             <li
               key={p.title}
-              className="rounded-2xl border border-line bg-bg p-7"
+              className="rounded-2xl border border-line bg-surface p-7"
             >
               <span className="font-mono text-sm text-accent">
                 {String(i + 1).padStart(2, "0")}

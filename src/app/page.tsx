@@ -21,9 +21,9 @@ export default function Home() {
       <main id="contenido" className="flex-1">
         <Hero />
         <Services />
-        <AiSection />
         <Approach />
         <Process />
+        <AiSection />
         <TechStack />
         <Contact />
       </main>

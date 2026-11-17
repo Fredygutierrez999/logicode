@@ -22,7 +22,7 @@ export function TechStack() {
     <section
       aria-labelledby="tecnologias-title"
       id="tecnologias"
-      className="border-b border-line bg-surface"
+      className="border-y border-line bg-surface"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_2fr]">

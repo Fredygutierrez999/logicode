@@ -24,7 +24,7 @@ export function AiSection() {
     <section
       aria-labelledby="ia-title"
       id="ia"
-      className="relative overflow-hidden border-t border-line"
+      className="relative overflow-hidden"
     >
       <div
         aria-hidden="true"
