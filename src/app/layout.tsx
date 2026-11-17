@@ -12,10 +12,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Dominio público del sitio. WhatsApp y las redes sociales necesitan URLs
+// absolutas para la imagen de vista previa. Defínelo en el hosting (SITE_URL)
+// antes de compilar, p. ej. https://www.logicode.com
+const siteUrl = process.env.SITE_URL ?? "http://localhost:3000";
+
+const title = "Logi Code — Software a la medida e IA para tu negocio";
+const description =
+  "Convertimos los objetivos de tu negocio en software: aplicaciones web, móviles y de escritorio, automatización y agentes de IA. Solicita tu diagnóstico de IA sin costo.";
+
 export const metadata: Metadata = {
-  title: "Logi Code — Aplicaciones web y móviles a la medida",
-  description:
-    "Desarrollamos aplicaciones web y móviles a la medida y asesoramos a empresas en IA, automatización de procesos, chatbots y agentes de IA, con foco en el valor para sus usuarios.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "es_LA",
+    url: "/",
+    siteName: "Logi Code",
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

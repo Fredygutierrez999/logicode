@@ -30,6 +30,14 @@ Los mensajes se envían por SMTP (Gmail) a `logi.code.app@gmail.com`. Configura 
 
 Sin estas variables el formulario muestra un error con el correo directo; nunca confirma un envío que no ocurrió.
 
+### Vista previa al compartir (WhatsApp, redes sociales)
+
+Al compartir el enlace se muestra título, resumen e imagen (`src/app/opengraph-image.tsx`, 1200×630). Define en el hosting:
+
+- `SITE_URL` — dominio público con `https://` y sin barra final (p. ej. `https://www.logicode.com`). Debe existir **antes de compilar**; sin él, la imagen apunta a `localhost` y WhatsApp no la muestra.
+
+El título y el resumen se editan en `src/app/layout.tsx`. WhatsApp guarda la vista previa en caché: tras un cambio puede tardar en actualizarse.
+
 ## Estructura
 
 ```
