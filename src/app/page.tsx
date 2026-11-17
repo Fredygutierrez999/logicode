@@ -1,3 +1,4 @@
+import { AiSection } from "@/components/AiSection";
 import { Approach } from "@/components/Approach";
 import { Contact } from "@/components/Contact";
 import { Hero } from "@/components/Hero";
@@ -19,6 +20,7 @@ export default function Home() {
       <main id="contenido" className="flex-1">
         <Hero />
         <Services />
+        <AiSection />
         <Approach />
         <Process />
         <Contact />
