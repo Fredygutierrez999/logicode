@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,10 +13,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Dominio público del sitio. WhatsApp y las redes sociales necesitan URLs
-// absolutas para la imagen de vista previa. Defínelo en el hosting (SITE_URL)
-// antes de compilar, p. ej. https://www.logicode.com
-const siteUrl = process.env.SITE_URL ?? "http://localhost:3000";
+// WhatsApp y las redes sociales necesitan URLs absolutas para la vista previa.
+const siteUrl = SITE_URL;
 
 const title = "Logi Code — Software a la medida e IA para tu negocio";
 const description =
