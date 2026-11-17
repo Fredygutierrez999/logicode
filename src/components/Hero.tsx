@@ -18,10 +18,9 @@ export function Hero() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted text-pretty">
-            En Logi Code diseñamos y desarrollamos aplicaciones web y móviles
-            para Android e iOS, construidas alrededor de las personas que las
-            van a usar. Cada decisión parte de una pregunta: ¿esto le aporta
-            valor al usuario?
+            En Logi Code convertimos los objetivos de tu negocio en software
+            pensado para las personas que lo usan. Elegimos la tecnología que
+            mejor resuelve cada caso y medimos el éxito por los resultados.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
@@ -38,7 +37,11 @@ export function Hero() {
             </a>
           </div>
           <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
-            {["Aplicaciones web", "Android", "iOS"].map((item) => (
+            {[
+              "Enfocados en resultados",
+              "Cualquier plataforma",
+              "IA aplicada a tu negocio",
+            ].map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <CheckIcon />
                 {item}

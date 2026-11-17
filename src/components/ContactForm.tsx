@@ -104,7 +104,7 @@ export function ContactForm() {
         </Field>
 
         <Field
-          label="Tipo de proyecto"
+          label="¿Qué quieres lograr?"
           name="projectType"
           error={errors.projectType}
         >
@@ -145,7 +145,7 @@ export function ContactForm() {
               rows={5}
               required
               defaultValue={values.message}
-              placeholder="¿Qué problema quieres resolver y para quién?"
+              placeholder="Cuéntanos tu situación actual y el resultado que buscas."
               aria-invalid={!!errors.message}
               aria-describedby={errors.message ? "message-error" : undefined}
               className={`${inputClass} resize-y`}

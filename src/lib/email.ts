@@ -39,7 +39,7 @@ export async function sendContactEmail(msg: ContactMessage): Promise<boolean> {
     `Nombre: ${msg.name}`,
     `Correo: ${msg.email}`,
     `Empresa: ${msg.company || "—"}`,
-    `Tipo de proyecto: ${msg.projectType}`,
+    `Objetivo: ${msg.projectType}`,
     "",
     "Mensaje:",
     msg.message,

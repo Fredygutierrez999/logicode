@@ -36,7 +36,7 @@ export async function submitContact(
   if (values.company.length > 120)
     errors.company = "El nombre de la empresa es demasiado largo.";
   if (!(projectTypes as readonly string[]).includes(values.projectType))
-    errors.projectType = "Selecciona un tipo de proyecto.";
+    errors.projectType = "Selecciona qué quieres lograr.";
   if (values.message.length < 10 || values.message.length > 3000)
     errors.message = "Cuéntanos un poco más (entre 10 y 3000 caracteres).";
 

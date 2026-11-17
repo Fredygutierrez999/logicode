@@ -1,12 +1,10 @@
 export const projectTypes = [
-  "Aplicación web",
-  "App para Android",
-  "App para iOS",
-  "Android e iOS",
-  "Aplicación de escritorio (Windows)",
-  "Asesoría en IA y automatización",
-  "Otro",
-  "Aún no estoy seguro",
+  "Llegar mejor a mis clientes",
+  "Operar con más eficiencia",
+  "Modernizar mis sistemas",
+  "Adoptar inteligencia artificial",
+  "Otro objetivo",
+  "Aún no lo tengo claro",
 ] as const;
 
 export type ContactField =
