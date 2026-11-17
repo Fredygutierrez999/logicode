@@ -4,6 +4,7 @@ export const projectTypes = [
   "App para iOS",
   "Android e iOS",
   "Aplicación de escritorio (Windows)",
+  "Asesoría en IA y automatización",
   "Otro",
   "Aún no estoy seguro",
 ] as const;

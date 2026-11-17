@@ -83,8 +83,8 @@ export function Services() {
         <SectionHeading
           id="servicios-title"
           eyebrow="Servicios"
-          title="Una sola visión de producto, en cada plataforma"
-          description="Construimos la aplicación que tu negocio necesita, en las plataformas donde están tus usuarios."
+          title="Soluciones que generan valor para tu negocio"
+          description="Construimos la aplicación que tu negocio necesita, en las plataformas donde están tus usuarios, y te ayudamos a llevar la inteligencia artificial a tus procesos."
         />
 
         <ul className="mt-14 grid gap-6 md:grid-cols-3">
@@ -116,7 +116,75 @@ export function Services() {
             </li>
           ))}
         </ul>
+
+        <AiConsulting />
       </div>
     </section>
+  );
+}
+
+const consultingPoints = [
+  {
+    title: "Diagnóstico y hoja de ruta",
+    text: "Identificamos qué procesos ganan más con IA y definimos un plan por etapas para adoptarla de forma segura y medible.",
+  },
+  {
+    title: "Automatización de procesos",
+    text: "Eliminamos tareas manuales y repetitivas conectando tus sistemas, datos y flujos de trabajo.",
+  },
+  {
+    title: "Chatbots con IA",
+    text: "Implementamos chatbots que atienden a clientes y colaboradores, resuelven consultas y ejecutan procesos conectados a tus sistemas.",
+  },
+  {
+    title: "Agentes de IA",
+    text: "Diseñamos agentes que ejecutan tareas dentro de tus procesos de negocio, trabajando junto a tus equipos.",
+  },
+];
+
+function AiConsulting() {
+  return (
+    <div className="mt-6 grid gap-10 rounded-2xl border border-accent/50 bg-accent-soft/40 p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <span className="grid size-12 place-items-center rounded-xl bg-accent text-accent-ink">
+          <svg {...iconProps}>
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+          </svg>
+        </span>
+        <p className="mt-6 font-mono text-xs uppercase tracking-widest text-accent">
+          Consultoría
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold tracking-tight text-balance">
+          Asesoría en IA empresarial y automatización
+        </h3>
+        <p className="mt-3 leading-relaxed text-muted text-pretty">
+          Te acompañamos a modernizar tu empresa uniendo la inteligencia
+          artificial con tus procesos de negocio. Empezamos por dónde se genera
+          más valor y avanzamos con resultados medibles, no con experimentos
+          sueltos.
+        </p>
+        <a
+          href="#contacto"
+          className="mt-6 inline-block rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink transition-colors hover:bg-accent-hover"
+        >
+          Agenda una asesoría
+        </a>
+      </div>
+
+      <ul className="grid gap-4 sm:grid-cols-2">
+        {consultingPoints.map((p) => (
+          <li
+            key={p.title}
+            className="rounded-xl border border-line bg-surface p-5"
+          >
+            <h4 className="font-semibold tracking-tight">{p.title}</h4>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted">
+              {p.text}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Logi Code — Aplicaciones web y móviles a la medida",
   description:
-    "Desarrollamos aplicaciones web y apps para Android e iOS a la medida, enfocadas en el valor que generan para sus usuarios.",
+    "Desarrollamos aplicaciones web y móviles a la medida y asesoramos a empresas en IA, automatización de procesos, chatbots y agentes de IA, con foco en el valor para sus usuarios.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
