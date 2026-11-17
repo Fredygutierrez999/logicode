@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
 import { SectionHeading } from "./SectionHeading";
 
-type Service = {
+type Outcome = {
   title: string;
-  description: string;
-  points: string[];
+  text: string;
+  builds: string[];
+  tech: string[];
   icon: ReactNode;
+  featured?: boolean;
 };
 
 const iconProps = {
@@ -20,53 +22,69 @@ const iconProps = {
   "aria-hidden": true,
 };
 
-const services: Service[] = [
+const outcomes: Outcome[] = [
   {
-    title: "Aplicaciones web",
-    description:
-      "Plataformas, portales y sistemas que funcionan en cualquier navegador: rápidos, seguros y fáciles de usar.",
-    points: [
-      "Sistemas de gestión y paneles administrativos",
-      "Portales para clientes y proveedores",
-      "Integración con tus sistemas y APIs existentes",
+    title: "Llega mejor a tus clientes",
+    text: "Convierte la experiencia digital en una ventaja: canales donde tus clientes compran, consultan y resuelven por sí mismos, sin fricción.",
+    builds: [
+      "Portales y apps de autoservicio",
+      "Canales de venta y atención digitales",
+      "Experiencias móviles que fidelizan",
     ],
+    tech: ["Web", "Android", "iOS", "React Native"],
     icon: (
       <svg {...iconProps}>
-        <rect x="3" y="4" width="18" height="16" rx="2" />
-        <path d="M3 9h18M8 14l-2 2 2 2M16 14l2 2-2 2" />
+        <path d="M3 17l6-6 4 4 8-8" />
+        <path d="M15 7h6v6" />
       </svg>
     ),
   },
   {
-    title: "Apps para Android",
-    description:
-      "Aplicaciones que aprovechan el dispositivo y se sienten naturales en la gran variedad de teléfonos Android.",
-    points: [
-      "Experiencia fluida en distintos tamaños de pantalla",
-      "Notificaciones, cámara, ubicación y modo sin conexión",
-      "Publicación y actualizaciones en Google Play",
+    title: "Opera con más eficiencia",
+    text: "Menos trabajo manual, menos errores y equipos enfocados en lo que importa. Digitalizamos y conectamos la operación de tu empresa.",
+    builds: [
+      "Sistemas de gestión a la medida",
+      "Integración entre tus sistemas y datos",
+      "Aplicaciones de escritorio y servicios de Windows",
     ],
+    tech: [".NET", "Java", "Go", "Node.js"],
     icon: (
       <svg {...iconProps}>
-        <rect x="6" y="2" width="12" height="20" rx="2.5" />
-        <path d="M10 18h4" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
       </svg>
     ),
   },
   {
-    title: "Apps para iOS",
-    description:
-      "Aplicaciones para iPhone y iPad que respetan las convenciones de Apple y la experiencia que sus usuarios esperan.",
-    points: [
-      "Diseño alineado con las guías de Apple",
-      "Integración con los servicios del ecosistema",
-      "Publicación y revisión en la App Store",
+    title: "Moderniza sin detener tu negocio",
+    text: "Tus sistemas actuales tienen valor. Los evolucionamos por etapas, sin interrumpir la operación ni empezar de cero.",
+    builds: [
+      "Migración de sistemas heredados",
+      "Nuevas interfaces sobre sistemas existentes",
+      "APIs para abrir tus datos a nuevos canales",
     ],
+    tech: [".NET", "Java", "Angular", "React"],
     icon: (
       <svg {...iconProps}>
-        <rect x="6" y="2" width="12" height="20" rx="3" />
-        <path d="M10.5 5h3" />
-        <circle cx="12" cy="18.5" r="0.8" fill="currentColor" />
+        <path d="M21 12a9 9 0 1 1-3-6.7" />
+        <path d="M21 4v5h-5" />
+      </svg>
+    ),
+  },
+  {
+    title: "Escala con inteligencia artificial",
+    text: "Unimos IA y procesos de negocio para que tu empresa haga más con los mismos recursos, con un plan claro y resultados medibles.",
+    builds: [
+      "Diagnóstico y hoja de ruta de adopción de IA",
+      "Automatización de procesos",
+      "Chatbots y agentes de IA conectados a tus sistemas",
+    ],
+    tech: ["IA generativa", "Agentes", "Automatización"],
+    featured: true,
+    icon: (
+      <svg {...iconProps}>
+        <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" />
+        <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" />
       </svg>
     ),
   },
@@ -75,113 +93,130 @@ const services: Service[] = [
 export function Services() {
   return (
     <section
-      aria-labelledby="servicios-title"
-      id="servicios"
+      aria-labelledby="soluciones-title"
+      id="soluciones"
       className="border-t border-line bg-surface"
     >
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
         <SectionHeading
-          id="servicios-title"
-          eyebrow="Servicios"
-          title="Soluciones que generan valor para tu negocio"
-          description="Construimos la aplicación que tu negocio necesita, en las plataformas donde están tus usuarios, y te ayudamos a llevar la inteligencia artificial a tus procesos."
+          id="soluciones-title"
+          eyebrow="Soluciones"
+          title="No vendemos tecnología. Resolvemos objetivos de negocio."
+          description="Empezamos por el resultado que tu empresa necesita y elegimos la tecnología que mejor lo consigue: web, móvil, escritorio, inteligencia artificial o una combinación de todas."
         />
 
-        <ul className="mt-14 grid gap-6 md:grid-cols-3">
-          {services.map((service) => (
+        <ul className="mt-14 grid gap-6 md:grid-cols-2">
+          {outcomes.map((o) => (
             <li
-              key={service.title}
-              className="flex flex-col rounded-2xl border border-line bg-bg p-7 transition-colors hover:border-accent/60"
+              key={o.title}
+              className={
+                o.featured
+                  ? "rounded-2xl bg-linear-to-br from-ai-from to-ai-to p-px"
+                  : "rounded-2xl border border-line"
+              }
             >
-              <span className="grid size-12 place-items-center rounded-xl bg-accent-soft text-accent">
-                {service.icon}
-              </span>
-              <h3 className="mt-6 text-xl font-semibold tracking-tight">
-                {service.title}
-              </h3>
-              <p className="mt-3 leading-relaxed text-muted">
-                {service.description}
-              </p>
-              <ul className="mt-6 space-y-3 border-t border-line pt-6 text-sm">
-                {service.points.map((point) => (
-                  <li key={point} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 size-1.5 shrink-0 rounded-full bg-accent"
-                    />
-                    {point}
-                  </li>
-                ))}
-              </ul>
+              <OutcomeCard outcome={o} />
             </li>
           ))}
         </ul>
 
-        <AiConsulting />
+        <ResultsCallout />
       </div>
     </section>
   );
 }
 
-const consultingPoints = [
-  {
-    title: "Diagnóstico y hoja de ruta",
-    text: "Identificamos qué procesos ganan más con IA y definimos un plan por etapas para adoptarla de forma segura y medible.",
-  },
-  {
-    title: "Automatización de procesos",
-    text: "Eliminamos tareas manuales y repetitivas conectando tus sistemas, datos y flujos de trabajo.",
-  },
-  {
-    title: "Chatbots con IA",
-    text: "Implementamos chatbots que atienden a clientes y colaboradores, resuelven consultas y ejecutan procesos conectados a tus sistemas.",
-  },
-  {
-    title: "Agentes de IA",
-    text: "Diseñamos agentes que ejecutan tareas dentro de tus procesos de negocio, trabajando junto a tus equipos.",
-  },
-];
-
-function AiConsulting() {
+function OutcomeCard({ outcome: o }: { outcome: Outcome }) {
   return (
-    <div className="mt-6 grid gap-10 rounded-2xl border border-accent/50 bg-accent-soft/40 p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr]">
-      <div>
-        <span className="grid size-12 place-items-center rounded-xl bg-linear-to-br from-ai-from to-ai-to text-accent-ink">
-          <svg {...iconProps}>
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
-          </svg>
+    <article
+      className={`flex h-full flex-col rounded-[calc(1rem-1px)] p-7 sm:p-8 ${
+        o.featured ? "bg-surface" : "bg-bg"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <span
+          className={`grid size-12 place-items-center rounded-xl ${
+            o.featured
+              ? "bg-linear-to-br from-ai-from to-ai-to text-accent-ink"
+              : "bg-accent-soft text-accent"
+          }`}
+        >
+          {o.icon}
         </span>
-        <p className="mt-6 font-mono text-xs uppercase tracking-widest text-accent">
-          Consultoría
-        </p>
-        <h3 className="mt-2 text-2xl font-semibold tracking-tight text-balance">
-          Asesoría en IA empresarial y automatización
+        {o.featured && (
+          <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+            Asesoría en IA
+          </span>
+        )}
+      </div>
+
+      <h3 className="mt-6 text-2xl font-semibold tracking-tight text-balance">
+        {o.title}
+      </h3>
+      <p className="mt-3 leading-relaxed text-muted text-pretty">{o.text}</p>
+
+      <ul className="mt-6 space-y-2.5 text-sm">
+        {o.builds.map((b) => (
+          <li key={b} className="flex gap-3">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mt-0.5 shrink-0 text-accent"
+              aria-hidden="true"
+            >
+              <path d="M5 12l5 5L20 7" />
+            </svg>
+            {b}
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-auto pt-7 font-mono text-xs text-muted">
+        <span className="sr-only">Tecnologías: </span>
+        {o.tech.join(" · ")}
+      </p>
+    </article>
+  );
+}
+
+function ResultsCallout() {
+  const metrics = [
+    "Ventas y conversión",
+    "Tiempos de proceso",
+    "Costos operativos",
+    "Satisfacción de usuarios",
+  ];
+
+  return (
+    <div className="mt-6 grid items-center gap-8 rounded-2xl border border-line bg-bg p-7 sm:p-10 lg:grid-cols-[1.2fr_1fr]">
+      <div>
+        <h3 className="text-xl font-semibold tracking-tight text-balance">
+          Medimos el éxito en resultados, no en líneas de código
         </h3>
         <p className="mt-3 leading-relaxed text-muted text-pretty">
-          Te acompañamos a modernizar tu empresa uniendo la inteligencia
-          artificial con tus procesos de negocio. Empezamos por dónde se genera
-          más valor y avanzamos con resultados medibles, no con experimentos
-          sueltos.
+          Desde el inicio definimos contigo los indicadores que importan a tu
+          negocio, y cada entrega se evalúa por cómo los mueve.
         </p>
         <a
           href="#contacto"
           className="mt-6 inline-block rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink transition-colors hover:bg-accent-hover"
         >
-          Agenda una asesoría
+          Cuéntanos tu objetivo
         </a>
       </div>
-
-      <ul className="grid gap-4 sm:grid-cols-2">
-        {consultingPoints.map((p) => (
+      <ul className="grid grid-cols-2 gap-3">
+        {metrics.map((m) => (
           <li
-            key={p.title}
-            className="rounded-xl border border-line bg-surface p-5"
+            key={m}
+            className="rounded-xl border border-line bg-surface px-4 py-3 text-sm font-medium"
           >
-            <h4 className="font-semibold tracking-tight">{p.title}</h4>
-            <p className="mt-1.5 text-sm leading-relaxed text-muted">
-              {p.text}
-            </p>
+            {m}
           </li>
         ))}
       </ul>

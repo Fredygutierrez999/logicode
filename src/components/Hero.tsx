@@ -31,10 +31,10 @@ export function Hero() {
               Cuéntanos tu proyecto
             </a>
             <a
-              href="#servicios"
+              href="#soluciones"
               className="rounded-full border border-line bg-surface px-6 py-3 text-center font-medium text-ink transition-colors hover:border-muted"
             >
-              Ver servicios
+              Ver soluciones
             </a>
           </div>
           <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
