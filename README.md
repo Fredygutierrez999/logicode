@@ -23,10 +23,14 @@ npm run dev                  # http://localhost:3000
 
 ### Formulario de contacto
 
-Los mensajes se envían por SMTP (Gmail) a `logi.code.app@gmail.com`. Configura en `.env.local` (y en el hosting al publicar):
+Los mensajes llegan a `logi.code.app@gmail.com`. Hay dos formas de envío:
 
-- `SMTP_USER` — cuenta de Gmail que envía.
-- `SMTP_PASS` — **contraseña de aplicación** de Google (no la contraseña normal), creada en <https://myaccount.google.com/apppasswords>.
+- **Producción (GoDaddy): API de Resend.** GoDaddy bloquea las conexiones SMTP salientes (error `EACCES`), así que en el hosting se envía por HTTPS con [Resend](https://resend.com):
+  - `RESEND_API_KEY` — clave de API de Resend. Si existe, tiene prioridad sobre SMTP.
+  - `EMAIL_FROM` — remitente, p. ej. `Logi Code <contacto@logicode.app>`, una vez verificado el dominio en Resend. Sin ella se usa `onboarding@resend.dev` (solo pruebas).
+- **Desarrollo local: SMTP de Gmail** (en `.env.local`):
+  - `SMTP_USER` — cuenta de Gmail que envía.
+  - `SMTP_PASS` — **contraseña de aplicación** de Google (no la contraseña normal), creada en <https://myaccount.google.com/apppasswords>.
 
 Sin estas variables el formulario muestra un error con el correo directo; nunca confirma un envío que no ocurrió.
 

@@ -11,10 +11,10 @@ export type ContactMessage = {
 
 type SmtpError = { code?: string; responseCode?: number; message?: string };
 
-/** Resume un error de SMTP en una línea sin datos sensibles. */
+/** Resume un error de red o SMTP en una línea sin datos sensibles. */
 export function describeSmtpError(error: unknown): string {
-  const e = (error ?? {}) as SmtpError;
-  return [e.code, e.responseCode, e.message?.slice(0, 160)]
+  const e = (error ?? {}) as SmtpError & { cause?: SmtpError };
+  return [e.code ?? e.cause?.code, e.responseCode, e.message?.slice(0, 160)]
     .filter(Boolean)
     .join(" | ");
 }
@@ -51,23 +51,16 @@ export function createSmtpTransport(
   });
 }
 
-/**
- * Envía la solicitud de contacto por SMTP (por defecto, Gmail).
- * Requiere SMTP_USER y SMTP_PASS en las variables de entorno.
- * Devuelve false si el envío no está configurado o falla.
- */
-export async function sendContactEmail(msg: ContactMessage): Promise<boolean> {
-  const auth = smtpCredentials();
-  if (!auth) {
-    console.error(
-      "[contacto] SMTP_USER/SMTP_PASS no están disponibles en el servidor; no se envió el correo.",
-    );
-    return false;
-  }
+export const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
-  // Evita saltos de línea en el asunto (inyección de cabeceras).
-  const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").slice(0, 120);
+/** Remitente para Resend. Usa EMAIL_FROM cuando el dominio esté verificado. */
+export const resendFrom = () =>
+  process.env.EMAIL_FROM ?? "Sitio Logi Code <onboarding@resend.dev>";
 
+// Evita saltos de línea en el asunto (inyección de cabeceras).
+const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").slice(0, 120);
+
+function composeEmail(msg: ContactMessage) {
   const text = [
     `Nombre: ${msg.name}`,
     `Correo: ${msg.email}`,
@@ -77,14 +70,72 @@ export async function sendContactEmail(msg: ContactMessage): Promise<boolean> {
     "Mensaje:",
     msg.message,
   ].join("\n");
+  return {
+    to: process.env.CONTACT_TO ?? CONTACT_EMAIL,
+    subject: `Nuevo contacto: ${oneLine(msg.name)} — ${oneLine(msg.projectType)}`,
+    text,
+  };
+}
+
+/**
+ * Envía la solicitud de contacto.
+ * - Con RESEND_API_KEY: por la API de Resend (HTTPS). Necesario en hostings
+ *   que bloquean SMTP, como GoDaddy.
+ * - Si no: por SMTP (Gmail) con SMTP_USER y SMTP_PASS.
+ * Devuelve false si el envío no está configurado o falla.
+ */
+export async function sendContactEmail(msg: ContactMessage): Promise<boolean> {
+  if (process.env.RESEND_API_KEY) return sendViaResend(msg);
+  return sendViaSmtp(msg);
+}
+
+async function sendViaResend(msg: ContactMessage): Promise<boolean> {
+  const { to, subject, text } = composeEmail(msg);
+  try {
+    const res = await fetch(RESEND_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: resendFrom(),
+        to: [to],
+        reply_to: msg.email,
+        subject,
+        text,
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (res.ok) return true;
+    console.error(
+      `[contacto] Resend rechazó el envío: HTTP ${res.status} ${(await res.text()).slice(0, 300)}`,
+    );
+  } catch (error) {
+    console.error(
+      `[contacto] No se pudo conectar con Resend: ${describeSmtpError(error)}`,
+    );
+  }
+  return false;
+}
+
+async function sendViaSmtp(msg: ContactMessage): Promise<boolean> {
+  const auth = smtpCredentials();
+  if (!auth) {
+    console.error(
+      "[contacto] Sin RESEND_API_KEY ni SMTP_USER/SMTP_PASS en el servidor; no se envió el correo.",
+    );
+    return false;
+  }
+  const { to, subject, text } = composeEmail(msg);
 
   for (const port of smtpPorts()) {
     try {
       await createSmtpTransport(port, auth).sendMail({
         from: `"Sitio Logi Code" <${auth.user}>`,
-        to: process.env.CONTACT_TO ?? CONTACT_EMAIL,
+        to,
         replyTo: { name: oneLine(msg.name), address: msg.email },
-        subject: `Nuevo contacto: ${oneLine(msg.name)} — ${oneLine(msg.projectType)}`,
+        subject,
         text,
       });
       return true;
