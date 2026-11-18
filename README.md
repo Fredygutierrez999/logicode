@@ -34,9 +34,47 @@ Los mensajes llegan a `logi.code.app@gmail.com`. Hay dos formas de envío:
 
 Sin estas variables el formulario muestra un error con el correo directo; nunca confirma un envío que no ocurrió.
 
+### Diagnóstico del correo
+
+Si el formulario muestra *"No pudimos enviar tu mensaje…"*, el sitio incluye una página de diagnóstico que revisa el envío **desde el propio servidor** (`src/app/api/diagnostico-correo/route.ts`).
+
+**Activarlo:** define en el hosting la variable `DIAG_TOKEN` con un valor largo y aleatorio (por ejemplo, genera uno con `openssl rand -hex 24`) y vuelve a publicar. Sin esa variable, o con un token incorrecto, la página responde **404** como si no existiera.
+
+**Usarlo:**
+
+| URL | Qué hace |
+|---|---|
+| `https://logicode.app/api/diagnostico-correo?token=<DIAG_TOKEN>` | Revisa variables y conexiones **sin enviar correos** |
+| `https://logicode.app/api/diagnostico-correo?token=<DIAG_TOKEN>&enviar=1` | Además **envía un correo de prueba real** a `logi.code.app@gmail.com` y muestra la respuesta exacta de Resend |
+
+La respuesta nunca muestra contraseñas ni claves; solo si están definidas y su largo.
+
+**Cómo leer el resultado:**
+
+| Campo | Resultado | Significado | Qué hacer |
+|---|---|---|---|
+| `proveedor_activo` | `Resend (HTTPS)` | Se usa Resend (correcto en GoDaddy) | — |
+| | `SMTP` | Falta `RESEND_API_KEY` en el servidor | Definirla y volver a publicar |
+| `resend.conexion_https` | `OK` | El servidor llega a Resend | — |
+| | `ERROR …` | El hosting bloquea la conexión a Resend | Revisar con el soporte del hosting |
+| `resend.respuesta` | `HTTP 422 … Missing 'to' field` | **Clave válida** (la prueba envía una solicitud vacía a propósito) | — |
+| | `HTTP 401 … API key is invalid` | Clave mal copiada o revocada | Crear una nueva en Resend |
+| `envio_de_prueba.respuesta` | `HTTP 200 {"id": …}` | **El envío funciona**; el correo debe llegar | Revisar también spam |
+| | `HTTP 403 … only send testing emails to your own email` | Sin dominio verificado, Resend solo envía al correo dueño de la cuenta | Verificar `logicode.app` en Resend o ajustar `CONTACT_TO` |
+| | `… domain is not verified` | `EMAIL_FROM` usa un dominio aún no verificado | Terminar la verificación o quitar `EMAIL_FROM` |
+| `conexion_smtp` | `EACCES` en 465 y 587 | GoDaddy bloquea SMTP saliente (esperado) | Nada: en GoDaddy se usa Resend |
+| | `EAUTH` | Gmail rechaza la contraseña de aplicación | Generar una nueva |
+
+También puedes revisar los envíos y sus errores en el panel de Resend → **Logs**.
+
+**Seguridad:**
+
+- Usa un `DIAG_TOKEN` largo y aleatorio y no lo compartas: con él cualquiera podría disparar correos de prueba (`&enviar=1`) y consumir la cuota de Resend.
+- Cámbialo si se compartió (por ejemplo en un chat) y cuando dejes de necesitarlo; para desactivar el diagnóstico basta con borrar la variable.
+
 ### Vista previa al compartir (WhatsApp, redes sociales)
 
-Al compartir el enlace se muestra título, resumen e imagen (`src/app/opengraph-image.tsx`, 1200×630). Define en el hosting:
+Al compartir el enlace se muestra título, resumen e imagen (`src/app/opengraph-image.tsx`, 1200×630).
 
 - El dominio público es `https://logicode.app` (en `src/lib/site.ts`). Si cambia, actualízalo ahí o define la variable `SITE_URL` antes de compilar.
 
@@ -51,11 +89,15 @@ src/
     page.tsx            Orden de las secciones de la página
     globals.css         Paleta de colores (tokens) — ver abajo
     actions/contact.ts  Server action del formulario
+    api/diagnostico-correo/route.ts  Diagnóstico del correo (protegido por DIAG_TOKEN)
+    opengraph-image.tsx Imagen de vista previa al compartir
+    icon.svg, favicon.ico, apple-icon.png  Íconos del sitio
+  assets/fonts/         Fuente Geist para la imagen de vista previa (licencia OFL)
   components/           Una sección por archivo (Hero, Services, AiSection, …)
   lib/
-    site.ts             Datos públicos (correo de contacto)
+    site.ts             Datos públicos (correo de contacto, dominio)
     contact.ts          Tipos y opciones del formulario
-    email.ts            Envío de correo (nodemailer)
+    email.ts            Envío de correo: Resend (HTTPS) o SMTP (nodemailer)
 ```
 
 ---

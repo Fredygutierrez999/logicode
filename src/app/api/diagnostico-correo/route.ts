@@ -10,12 +10,15 @@ import {
 import { CONTACT_EMAIL } from "@/lib/site";
 
 /**
- * Diagnóstico TEMPORAL del envío de correo desde el servidor.
- * Prueba Resend (HTTPS) y SMTP SIN enviar correos ni mostrar claves. Solo existe si se define la variable DIAG_TOKEN; uso:
+ * Diagnóstico del envío de correo desde el servidor (ver README,
+ * "Diagnóstico del correo").
+ *
+ * Prueba la conexión con Resend (HTTPS) y SMTP sin enviar correos ni mostrar
+ * claves. Solo responde si la variable DIAG_TOKEN está definida y el token
+ * coincide; en cualquier otro caso devuelve 404.
  *   https://logicode.app/api/diagnostico-correo?token=<DIAG_TOKEN>
- * Con &enviar=1 envía un correo de prueba REAL al destinatario del formulario
- * y muestra la respuesta exacta del proveedor.
- * Elimina este archivo (y DIAG_TOKEN) cuando el problema esté resuelto.
+ * Con &enviar=1 envía además un correo de prueba REAL al destinatario del
+ * formulario y muestra la respuesta exacta del proveedor.
  */
 export async function GET(request: Request) {
   const expected = process.env.DIAG_TOKEN;
