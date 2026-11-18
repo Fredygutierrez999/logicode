@@ -7,16 +7,20 @@ import {
   smtpPorts,
   resendFrom,
 } from "@/lib/email";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 /**
  * Diagnóstico TEMPORAL del envío de correo desde el servidor.
  * Prueba Resend (HTTPS) y SMTP SIN enviar correos ni mostrar claves. Solo existe si se define la variable DIAG_TOKEN; uso:
  *   https://logicode.app/api/diagnostico-correo?token=<DIAG_TOKEN>
+ * Con &enviar=1 envía un correo de prueba REAL al destinatario del formulario
+ * y muestra la respuesta exacta del proveedor.
  * Elimina este archivo (y DIAG_TOKEN) cuando el problema esté resuelto.
  */
 export async function GET(request: Request) {
   const expected = process.env.DIAG_TOKEN;
-  const given = new URL(request.url).searchParams.get("token") ?? "";
+  const params = new URL(request.url).searchParams;
+  const given = params.get("token") ?? "";
   const hash = (s: string) => createHash("sha256").update(s).digest();
 
   if (!expected || !timingSafeEqual(hash(given), hash(expected))) {
@@ -27,6 +31,7 @@ export async function GET(request: Request) {
   const result: Record<string, unknown> = {
     proveedor_activo: process.env.RESEND_API_KEY ? "Resend (HTTPS)" : "SMTP",
     resend: await checkResend(),
+    ...(params.get("enviar") === "1" && { envio_de_prueba: await sendTest() }),
     variables: {
       SMTP_USER: auth?.user ?? process.env.SMTP_USER ?? null,
       SMTP_PASS_definida: Boolean(process.env.SMTP_PASS),
@@ -51,6 +56,33 @@ export async function GET(request: Request) {
   }
 
   return Response.json(result, { headers: { "Cache-Control": "no-store" } });
+}
+
+/** Envía un correo de prueba real por Resend y devuelve la respuesta tal cual. */
+async function sendTest() {
+  const to = process.env.CONTACT_TO ?? CONTACT_EMAIL;
+  try {
+    const res = await fetch(RESEND_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY ?? "sin-clave"}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: resendFrom(),
+        to: [to],
+        subject: "Prueba del formulario de logicode.app",
+        text: "Correo de prueba enviado desde el diagnóstico del sitio.",
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    return {
+      destinatario: to,
+      respuesta: `HTTP ${res.status} ${(await res.text()).slice(0, 300)}`,
+    };
+  } catch (error) {
+    return { destinatario: to, error: describeSmtpError(error) };
+  }
 }
 
 /**
